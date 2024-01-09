@@ -2,7 +2,7 @@ name: Check For Release Tag
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   check_for_release_tag:
