@@ -101,4 +101,10 @@ jobs:
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
           message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+
+      - name: manual tag
+        run: |
+          git tag -a ${{ steps.bump-semver.outputs.new_version }} -m "Release blah"
+          git push origin --tags
+          
     
