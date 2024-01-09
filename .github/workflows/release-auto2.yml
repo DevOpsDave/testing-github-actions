@@ -75,18 +75,21 @@ jobs:
       
       - name: Set up Go
         uses: actions/setup-go@v2
+        if: ${{ steps.release-label.outputs.level != null }}
         with:
           go-version: 1.18.x
 
       - name: Import GPG key
         id: import_gpg
         uses: paultyng/ghaction-import-gpg@v2.1.0
+        if: ${{ steps.release-label.outputs.level != null }}
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
+        if: ${{ steps.release-label.outputs.level != null }}
         with:
           version: latest
           args: release --rm-dist
