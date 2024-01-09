@@ -96,11 +96,11 @@ jobs:
           echo "The new version is: ${{ steps.bump-semver.outputs.new_version }}"
           echo "The label is: ${{ needs.get_pull_request.outputs.pull_request_labels }}"
 
-      - uses: actions-ecosystem/action-push-tag@v1
-        if: ${{ steps.release-label.outputs.level != null }}
-        with:
-          tag: ${{ steps.bump-semver.outputs.new_version }}
-          message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+      #- uses: actions-ecosystem/action-push-tag@v1
+      #  if: ${{ steps.release-label.outputs.level != null }}
+      #  with:
+      #    tag: ${{ steps.bump-semver.outputs.new_version }}
+      #    message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
 
       - name: manual tag
         run: |
