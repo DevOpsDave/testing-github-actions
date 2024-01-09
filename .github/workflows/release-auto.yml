@@ -17,7 +17,7 @@ name: release-auto
 
 on:
   push:
-    branches: [ master, develop, US852217-automatic-release ]
+    branches: [ main, master, develop, US852217-automatic-release ]
 
 jobs:
   get_pull_request:
