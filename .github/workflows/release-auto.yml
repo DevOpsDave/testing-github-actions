@@ -53,11 +53,11 @@ jobs:
       - get_pull_request
     if: ${{ contains(needs.get_pull_request.outputs.pull_request_labels, 'release/patch') || contains(needs.get_pull_request.outputs.pull_request_labels, 'release/minor') || contains(needs.get_pull_request.outputs.pull_request_labels, 'release/major') }}
     steps:
-      #- name: Checkout
-      #  uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      #- name: Unshallow
-      #  run: git fetch --prune --unshallow
+      - name: Unshallow
+        run: git fetch --prune --unshallow
 
       #- name: Version Bump
       #  run: |
