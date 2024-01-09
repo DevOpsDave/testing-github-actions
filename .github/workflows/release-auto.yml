@@ -19,10 +19,14 @@ name: release-auto
 #  push:
 #    branches: [ main, master, develop, US852217-automatic-release ]
 
-on: 
-  push:
-    branches:
-      - main
+#on: 
+#  push:
+#    branches:
+#      - main
+
+on:
+  pull_request:
+    types: [closed]
 
 jobs:
   get_pull_request:
