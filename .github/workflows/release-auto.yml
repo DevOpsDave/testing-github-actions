@@ -71,12 +71,6 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      #- name: tag it
-      #  run: |
-      #    git tag -a "blah" -m "Release blah"
-      #    git push origin --tags
-      # trivial change
-
       - uses: actions-ecosystem/action-release-label@v1
         id: release-label
         if: ${{ github.event.pull_request.merged == true }}
@@ -102,18 +96,29 @@ jobs:
         with:
           tag: ${{ steps.bump-semver.outputs.new_version }}
           message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+      
+      #- name: Checkout
+      #  uses: actions/checkout@v2
+      #- name: Unshallow
+      #  run: git fetch --prune --unshallow
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18.x
+      #- name: Import GPG key
+      #  id: import_gpg
+      #  uses: paultyng/ghaction-import-gpg@v2.1.0
+      #  env:
+          #GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          #PASSPHRASE: ${{ secrets.PASSPHRASE }}
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
+        env:
+          #GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Set github user
-      #   run: |
-      #     git config --global user.name 'github-actions[bot]'
-      #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      # - name: manual tag
-      #   run: |
-      #     export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-      #     git config --global user.name 'github-actions[bot]'
-      #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      #     git tag -a ${{ steps.bump-semver.outputs.new_version }} -m "Release blah"
-      #     git push origin --tags
           
     
