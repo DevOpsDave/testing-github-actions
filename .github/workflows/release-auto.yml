@@ -65,11 +65,11 @@ jobs:
           echo "The last tag was: $out"
           echo "The label is: ${{ needs.get_pull_request.outputs.pull_request_labels }}"
 
-      - name: Set github user
-        run: |
-          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      #- name: Set github user
+      #  run: |
+      #    export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+      #    git config --global user.name 'github-actions[bot]'
+      #    git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - uses: actions-ecosystem/action-release-label@v1
         id: release-label
@@ -97,10 +97,6 @@ jobs:
           tag: ${{ steps.bump-semver.outputs.new_version }}
           message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
       
-      #- name: Checkout
-      #  uses: actions/checkout@v2
-      #- name: Unshallow
-      #  run: git fetch --prune --unshallow
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
