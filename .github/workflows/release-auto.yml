@@ -67,6 +67,7 @@ jobs:
 
       - name: Set github user
         run: |
+          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
@@ -101,6 +102,11 @@ jobs:
       #  with:
       #    tag: ${{ steps.bump-semver.outputs.new_version }}
       #    message: '${{ steps.bump-semver.outputs.new_version }}: PR #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}'
+
+      - name: Set github user
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: manual tag
         run: |
